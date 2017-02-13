@@ -1,0 +1,30 @@
+0. Comment out run-list of both nodes, and do vagrant up for each node
+    0a. vagrant up rac1n1
+    0b. vagrant up rac1n2
+
+00. Change password of 'oracle' user to 'oracle'
+--> Logon to each node by doing vagrant ssh nodename
+--> sudo to root
+--> run 'passwd oracle' and enter new password as oracle itself
+
+Note: The machine itself comes with two groups and a user:
+uid=54321(oracle) gid=54321(oinstall) groups=54321(oinstall),54322(dba)
+--> And, vagrant uses uid 54322
+--> Retain them, add 'create' blocks in users_and_groups - it will add if not there ...
+
+1. rac1n1 - 'recipe[cbora12crac1::users_and_groups]'
+2. rac1n2 - 'recipe[cbora12crac1::users_and_groups]'
+3. rac1n1 - 'recipe[cbora12crac1::update_etc_hosts]'
+4. rac1n2 - 'recipe[cbora12crac1::update_etc_hosts]'
+5. rac1n1 - install sshpass rpm
+6. rac1n2 - install sshpass rpm
+7. rac1n1 - 'recipe[cbora12crac1::setup_ssh]'
+8. rac1n2 - 'recipe[cbora12crac1::setup_ssh]'
+8. rac1n1 - 'recipe[cbora12crac1::directories]'
+9. rac1n2 - 'recipe[cbora12crac1::directories]'
+10. rac1n1 - 'recipe[cbora12crac1::configure_oracleasm]','recipe[cbora12crac1::prepare_asm_disks]'
+
+11. not needed??as configure_oracleasm does both nodes:
+      rac1n2 - 'recipe[cbora12crac1::configure_oracleasm]'
+
+On rac1n1 ./runInstaller -silent -responseFile /tmp/grid.rsp -showProgress -ignorePrereq
