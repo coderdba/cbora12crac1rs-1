@@ -16,8 +16,8 @@ uid=54321(oracle) gid=54321(oinstall) groups=54321(oinstall),54322(dba)
 2. rac1n2 - 'recipe[cbora12crac1::users_and_groups]'
 3. rac1n1 - 'recipe[cbora12crac1::update_etc_hosts]'
 4. rac1n2 - 'recipe[cbora12crac1::update_etc_hosts]'
-5. rac1n1 - install sshpass rpm
-6. rac1n2 - install sshpass rpm
+5. rac1n1 - 'recipe[cbora12crac1::install_sshpass]'
+6. rac1n2 - 'recipe[cbora12crac1::install_sshpass]'
 7. rac1n1 - 'recipe[cbora12crac1::setup_ssh]'
 8. rac1n2 - 'recipe[cbora12crac1::setup_ssh]'
 8. rac1n1 - 'recipe[cbora12crac1::directories]'
